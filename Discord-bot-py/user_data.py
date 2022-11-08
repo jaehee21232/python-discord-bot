@@ -22,10 +22,10 @@ class User_Data:
         c.execute("SELECT id FROM UserData")
         c.execute("SELECT * FROM UserData WHERE id ='{}'".format(id))
         if c.fetchone() == None:
-            return True
+            return False
         else:
             print("찾음")
-            return False
+            return True
 
     def Selete(id):
         c.execute("SELECT * FROM UserData WHERE id ='{}'".format(id))
