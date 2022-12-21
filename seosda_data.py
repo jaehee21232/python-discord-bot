@@ -1,11 +1,10 @@
 import sqlite3
 
-conn = sqlite3.connect("seosda_data.db", isolation_level=None)
+conn = sqlite3.connect("sqlite_data/seosda_data.db", isolation_level=None)
 
 c = conn.cursor()
 
-c.execute("CREATE TABLE IF NOT EXISTS seosda \
-    (id text, 이름 text, Card1 text, Card2 text, 결과 text)")
+c.execute("CREATE TABLE IF NOT EXISTS seosda (id text, 이름 text, Card1 text, Card2 text, 결과 text)")
 
 s = 0
 a = []
@@ -41,11 +40,11 @@ NN = "https://cdn.discordapp.com/attachments/904681455186247693/9094569465774284
 
 class Seosda:
 
-    def seosdasign(id, name, card1, card2, mains):
+    def seosdasign(self, id, name, card1, card2, mains):
         c.execute(f"INSERT INTO seosda \
         VALUES('{id}', '{name}','{card1}','{card2}','{str(mains)}')")
 
-    def seosdacheck(id):
+    def seosdacheck(self, id):
         c.execute("SELECT id FROM seosda")
         c.execute("SELECT * FROM seosda WHERE id ='{}'".format(id))
         if c.fetchone() == None:
@@ -53,27 +52,27 @@ class Seosda:
         else:
             return True
 
-    def Seleteid():
+    def Seleteid(self):
         c.execute("SELECT * FROM seosda")
         for row in c.fetchall():
             a.append(row[0])
 
-    def Data_delete():
+    def Data_delete(self):
         c.execute("DELETE FROM 'seosda'")
 
-    def changeone(id, name, card1, card2, cardmain):
+    def changeone(self, id, name, card1, card2, cardmain):
         c.execute("DELETE FROM seosda WHERE id = :ID", {"ID": id})
-        Seosda.seosdasign(id, name, card1, card2, str(cardmain))
+        Seosda.seosdasign(self, id, name, card1, card2, str(cardmain))
 
-    def Seletename():
+    def Seletename(self):
         c.execute("SELECT * FROM seosda")
         for row in c.fetchall():
             n.append(row[1])
 
-    def Delete(id):
+    def Delete(self, id):
         c.execute("DELETE FROM seosda WHERE id = :ID", {"ID": id})
 
-    def SeleteDeck():
+    def SeleteDeck(self):
         c.execute("SELECT * FROM seosda")
         for row in c.fetchall():
             D.append(row[4])
@@ -81,7 +80,7 @@ class Seosda:
 
 class Deck:
 
-    def GiveCard(P):
+    def GiveCard(self, P):
         if P == 1:
             return Seosda_Card[1], Seosda_Card[2]
         if P == 2:
@@ -91,7 +90,7 @@ class Deck:
         if P == 4:
             return Seosda_Card[7], Seosda_Card[8]
 
-    def CardCheck(card):
+    def CardCheck(self, card):
         if card == "https://cdn.discordapp.com/attachments/907266059457925130/907266083285762078/1-1.jpg":
             return "일광"
         if card == "https://cdn.discordapp.com/attachments/907266059457925130/907266089417834536/1-2.jpg":
@@ -133,7 +132,7 @@ class Deck:
         if card == "https://cdn.discordapp.com/attachments/907266059457925130/907266186289500250/2-10.jpg":
             return "십월"
 
-    def Cardmain(card1, card2):
+    def Cardmain(self, card1, card2):
         if card1 == "삼광" and card2 == "팔광":
             return "삼팔광땡", 1
         elif card1 == "팔광" and card2 == "삼광":
@@ -480,7 +479,7 @@ class Deck:
         else:
             return "없어"
 
-    def Rank(num1, num2, num3, num4):
+    def Rank(self, num1, num2, num3, num4):
         a = min(int(num1), int(num2), int(num3), int(num4))
         if a == int(num1):
             if a == int(num2):

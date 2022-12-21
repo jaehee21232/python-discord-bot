@@ -1,21 +1,25 @@
-from discord import client, message
-from discord.ext import commands, tasks
-from datetime import date, datetime
-from discord.ext.commands.bot import Bot
-from discord.message import Message, flatten_handlers
+import ang
 import random
 import discord
 import user_data
 import seosda_data
-import ang
-from itertools import cycle
-from seosda_data import Deck, Seosda
 from ang import Jusig
+from discord.ext import tasks, commands
+from datetime import datetime
+from seosda_data import Deck, Seosda
 
 
-app = discord.Client()
-today = datetime.now()  # 오늘 날짜
-token = "OTAyMDA4ODQ2OTI1NTcwMDk4.YXYLMw.TNhPK1fmH-0Wz4bpedTKLyGzoeo"  # 디스코드 봇의 고유 토큰
+intents = discord.Intents.default()
+intents.members = True
+intents.message_content = True
+
+# 오늘 날짜
+today = datetime.now()
+
+# 디스코드 봇의 고유 토큰
+TOKEN = "OTAyMDA4ODQ2OTI1NTcwMDk4.YXYLMw.TNhPK1fmH-0Wz4bpedTKLyGzoeo"
+app = discord.Client(intents=intents)
+
 hansei_bank_money = 1000
 
 
@@ -40,7 +44,7 @@ async def chcange_status():
 @app.event
 async def on_message(message):
     if message.author.bot:
-        return None  # 명령어 친 사람이 봇이면 반응 안함
+        return None
 
     if message.content.startswith("!앙"):
         num = []
@@ -256,7 +260,7 @@ async def on_message(message):
                                     user_data.User_Data.change_user(
                                         seosda_data.n[3], int(seosda_data.a[3]), p4-500)
                             bet = discord.Embed(
-                                title="베팅　　기본500  최대 10만", description="콜: 앞 사람이 베팅한 금액만큼 레이스 머니를 받습니다.\n\n 다이: 죽습니다.\n\n 하프: 최대 배팅액의 1/2를 베팅합니다.\n\n ", color=0x62c1cc)
+                                title="베팅  기본500  최대 10만", description="콜: 앞 사람이 베팅한 금액만큼 레이스 머니를 받습니다.\n\n 다이: 죽습니다.\n\n 하프: 최대 배팅액의 1/2를 베팅합니다.\n\n ", color=0x62c1cc)
                             ab = 2000
                             P_bet = 500
                             await message.channel.send(embed=bet)
@@ -471,7 +475,7 @@ async def on_message(message):
                             else:
                                 winner = seosda_data.n[Deck.Rank(
                                     num[0], num[1], num[2], num[3])]
-                            embed = discord.Embed(title=" 결과", description="\n{}님:　({})\n\n {}님:　({})\n\n {}님:　({})\n\n {}님:　({})".format(
+                            embed = discord.Embed(title=" 결과", description="\n{}님: ({})\n\n {}님: ({})\n\n {}님: ({})\n\n {}님: ({})".format(
                                 seosda_data.n[0], seosda_data.D[0], seosda_data.n[1], seosda_data.D[
                                     1], seosda_data.n[2], seosda_data.D[2], seosda_data.n[3], seosda_data.D[3]
                             ), color=0x62c1cc)
@@ -493,4 +497,4 @@ async def on_message(message):
                 embed = discord.Embed(title="실패", color=0x62c1cc)
                 await message.channel.send(embed=embed)
 
-app.run(token)
+app.run(TOKEN)

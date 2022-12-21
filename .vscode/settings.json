@@ -1,6 +1,4 @@
 {
-  "python.analysis.typeCheckingMode": "off",
-  "githubPullRequests.ignoredPullRequestBranches": [
-    "main"
-  ]
+  "python.analysis.typeCheckingMode": "basic",
+  "githubPullRequests.ignoredPullRequestBranches": ["main"]
 }

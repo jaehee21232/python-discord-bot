@@ -1,9 +1,10 @@
-import sqlite3,random,math
+import random
+import sqlite3
 
 jutime = 180
 hansei_bank = None
 jaeheedang = None
-conn = sqlite3.connect("jusig_data.db", isolation_level=None)
+conn = sqlite3.connect("sqlite_data/jusig_data.db", isolation_level=None)
 
 c = conn.cursor()
 
@@ -34,7 +35,7 @@ class Jusig:
         VALUES('{name}', '{money}')")
 
     def upjusign(id, name, juname, ju1):
-        c.execute("DELETE FROM 주식매수량 WHERE 아이디 = :ID",{"ID":id})
+        c.execute("DELETE FROM 주식매수량 WHERE 아이디 = :ID", {"ID": id})
         Jusig.maesosign(id, name, juname, ju1)
 
     def maesosign(id, name, juname, ju1):
@@ -43,12 +44,12 @@ class Jusig:
                 VALUES('{id}', '{name}','{ju1}')")
 
     def Seletejusig(name):
-        c.execute("SELECT * FROM jusig_data WHERE 종목 = :ID",{"ID":name})
+        c.execute("SELECT * FROM jusig_data WHERE 종목 = :ID", {"ID": name})
         for row in c.fetchall():
             return row[1]
 
     def updatejusig(name, money):
-        c.execute("DELETE FROM jusig_data WHERE 종목 = :ID",{"ID":name})
+        c.execute("DELETE FROM jusig_data WHERE 종목 = :ID", {"ID": name})
         Jusig.jusigsign(name, money)
 
     def jusigone():
@@ -56,8 +57,8 @@ class Jusig:
         zosik = random.randrange(1, 99)
         한세은행 = None
         if pl == "+":
-            한세은행돈 =  int(Jusig.Seletejusig("한세은행")) + zosik
-            한세은행 = "{}　한세은행　　{}(🔺{})".format(
+            한세은행돈 = int(Jusig.Seletejusig("한세은행")) + zosik
+            한세은행 = "{} 한세은행  {}(🔺{})".format(
                 pl, 한세은행돈, str(zosik).rjust(8)
             )
             Jusig.updatejusig("한세은행", 한세은행돈)
@@ -65,19 +66,19 @@ class Jusig:
 
         if pl == "-":
             한세은행돈 = int(Jusig.Seletejusig("한세은행")) - zosik
-            한세은행 = "{}　한세은행　　{}(🔻{})".format(
+            한세은행 = "{} 한세은행  {}(🔻{})".format(
                 pl, 한세은행돈, str(zosik).rjust(8)
             )
             Jusig.updatejusig("한세은행", 한세은행돈)
             return 한세은행
-    
+
     def jusigtwo():
         pl = random.choice(["+", "-"])
         zosik = random.randrange(1, 49)
         재희재당 = None
         if pl == "+":
-            재희재당돈 =  int(Jusig.Seletejusig("재희재당")) + zosik
-            재희재당 = "{}　재희재당　　{}(🔺 {})".format(
+            재희재당돈 = int(Jusig.Seletejusig("재희재당")) + zosik
+            재희재당 = "{} 재희재당  {}(🔺 {})".format(
                 pl, 재희재당돈, (zosik)
             )
             Jusig.updatejusig("재희재당", 재희재당돈)
@@ -85,15 +86,12 @@ class Jusig:
 
         if pl == "-":
             재희재당돈 = int(Jusig.Seletejusig("재희재당")) - zosik
-            재희재당 = "{}　재희재당　　{}(🔻 {})".format(
+            재희재당 = "{} 재희재당  {}(🔻 {})".format(
                 pl, 재희재당돈, (zosik)
             )
             Jusig.updatejusig("재희재당", 재희재당돈)
             return 재희재당
-        
 
-    
     def jurestart():
         Jusig.jusigsign("한세은행", 1000)
         Jusig.jusigsign("재희재당", 500)
-

@@ -9,7 +9,7 @@ class smallgame(commands.Cog):
     @commands.command(name="야바위")
     async def test(self, ctx):
         embed = discord.Embed(
-            title="야바위게임", description="⚾　 🏀　 ⚽\n\n  고르세요!", color=0x62c1cc)
+            title="야바위게임", description="⚾  🏀  ⚽\n\n  고르세요!", color=0x62c1cc)
         msg = await ctx.channel.send(embed=embed)
         mmm = await msg.add_reaction("⚾")
         await msg.add_reaction("🏀")
