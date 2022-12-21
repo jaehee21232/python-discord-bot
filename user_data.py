@@ -4,8 +4,7 @@ conn = sqlite3.connect("sqlite_data/user.db", isolation_level=None)
 
 c = conn.cursor()
 
-c.execute("CREATE TABLE IF NOT EXISTS UserData \
-    (name text, id text, money text)")
+c.execute("CREATE TABLE IF NOT EXISTS UserData (name text, id text, money text)")
 
 a = []
 money = []
@@ -35,7 +34,7 @@ class User_Data:
         c.execute("DELETE FROM UserData WHERE id = :ID", {"ID": id})
         User_Data.sign(name, id, money)
 
-    def Selete_money(id):
+    def seletemoney(id):
         c.execute("SELECT * FROM UserData WHERE id ='{}'".format(id))
         for row in c.fetchall():
             money.append(row[2])
