@@ -1,13 +1,16 @@
 import ang
 import random
+import json
 import discord
 import user_data
 import seosda_data
 from ang import Jusig
-from discord.ext import tasks, commands
+from discord.ext import tasks
 from datetime import datetime
 from seosda_data import Deck, Seosda
 
+with open('config.json', 'r', encoding='utf-8') as f:
+    config = json.load(f)
 
 intents = discord.Intents.default()
 intents.members = True
@@ -17,7 +20,7 @@ intents.message_content = True
 today = datetime.now()
 
 # 디스코드 봇의 고유 토큰
-TOKEN = "OTAyMDA4ODQ2OTI1NTcwMDk4.YXYLMw.TNhPK1fmH-0Wz4bpedTKLyGzoeo"
+TOKEN = config['discord_bot_token']
 app = discord.Client(intents=intents)
 
 hansei_bank_money = 1000
