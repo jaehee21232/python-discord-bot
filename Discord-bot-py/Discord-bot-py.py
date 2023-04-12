@@ -9,7 +9,7 @@ from seosda_data import Deck, Seosda
 from ang import Jusig
 app = discord.Client()
 today = datetime.now() #오늘 날짜
-token = "OTAyMDA4ODQ2OTI1NTcwMDk4.YXYLMw.TNhPK1fmH-0Wz4bpedTKLyGzoeo" #디스코드 봇의 고유 토큰
+token = "Token" #디스코드 봇의 고유 토큰
 hansei_bank_money = 1000
 
 @app.event
